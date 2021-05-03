@@ -1,5 +1,5 @@
 # mpv-scripts
-Any mpv scripts I've create that I feel are worth sharing.
+Any mpv scripts I've created that I feel are worth sharing.
 
 ## dynamic_bcspline.lua
 
@@ -11,7 +11,7 @@ This isn't a magical upscaling filter—it simply changes sharpness at different
 
 B and C have an inverse relationship where `C = 1/2 * -B + 1/2`.
 
-![image](./images/key-filters.png)
+![image](./images/key_filters.png)
 
 You may notice that the lines intersect at `(1/3, 1/3)` which is the same as the Mitchell filter.
 https://legacy.imagemagick.org/Usage/filter/#windowed
@@ -26,10 +26,10 @@ Since we have the inverse relationship we can scale B and C according how zoomed
 
 `x/1+|x|` is the easiest to work with as the intersection naturally lands at `(1/2, 1/3)`
 
-![image](./images/key-filters-func.png)
+![image](./images/key_filters_func.png)
 
 Multiplying our value by 1.5 once again gives us an intersection of `(1/3, 1/3)`.
 
-![image](./images/key-filters-func-mult.png)
+![image](./images/key_filters_func_mult.png)
 
 This gives us B and C for any zoom value above and below 0. Values below 0 don't necessarily have to be used due to how correct-downscaling works but it's nice to have if more sharpening when downscaling is needed.
