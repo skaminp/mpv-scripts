@@ -28,7 +28,7 @@ You may notice that the lines intersect at `(1/3, 1/3)` which is the same as the
 
 To scale B and C according to zoom level we need the ratio which is the scaled image divided by the original image, converted to log base 2. For instance a 720p image scaled to 1080p has a ratio of 3 and a log base 2 ratio of 0.585. A 1080p image scaled to 720p has a ratio of 0.667 and a log base 2 ratio of -0.585.
 
-So the log base 2 ratio is a nice linearly scaling number with an origin of 0 whic can be plugged into our formula. Now we want to modify our formula to be a gradual curve between 0 and 1 in the positive direction.
+So the log base 2 ratio is a nice linearly scaling number with an origin of 0 which can be plugged into our formula. Now we want to modify our formula to be a gradual curve between 0 and 1 in the positive direction.
 
 <p align="center">
     <img src = "https://upload.wikimedia.org/wikipedia/commons/6/6f/Gjl-t%28x%29.svg">
