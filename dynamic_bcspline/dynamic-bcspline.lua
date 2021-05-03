@@ -1,11 +1,11 @@
-local opts = {
+local options = {
     offset = 1.5,
     cutoff = 0,
     dscale_nearest = true,
     dscale_nearest_level = -3,
-    debug = false
+    debug_message = false,
 }
-(require 'mp.options').read_options(opts)
+(require 'mp.options').read_options(options)
 
 local cutoff_check = true
 local dscale_nearest_check = false
@@ -21,7 +21,7 @@ local offset_list = {
     1.25,
     1.5,
     1.75,
-    2
+    2,
 }
 
 function get_video_dimensions()
@@ -130,9 +130,9 @@ function dynamic_scale()
 
     local log_ratio = math.log(ratio) / math.log(2)
 
-    if opts.dscale_nearest and opts.dscale_nearest_level <= 0 and opts.offset==1.5 and opts.cutoff == 0 then
-        if log_ratio <= opts.dscale_nearest_level then
-            if not opts.dscale_nearest_check then
+    if options.dscale_nearest and options.dscale_nearest_level <= 0 and options.offset==1.5 and options.cutoff == 0 then
+        if log_ratio <= options.dscale_nearest_level then
+            if not options.dscale_nearest_check then
                 mp.command("no-osd set dscale nearest")
                 dscale_nearest_check = true
             end
@@ -142,33 +142,33 @@ function dynamic_scale()
                 dscale_nearest_check = false
             end
 
-            if log_ratio >= opts.cutoff then
+            if log_ratio >= options.cutoff then
                 cutoff_check = true
                 set_params(log_ratio)
             end
         end
 
-        if log_ratio < opts.cutoff and cutoff_check then
-            set_params(opts.cutoff)
+        if log_ratio < options.cutoff and cutoff_check then
+            set_params(options.cutoff)
             cutoff_check = false;
         end
     else    -- default without transition to nearest
-        if log_ratio >= opts.cutoff then
+        if log_ratio >= options.cutoff then
             cutoff_check = true
             set_params(log_ratio)
         elseif cutoff_check then
-            set_params(opts.cutoff)
+            set_params(options.cutoff)
             cutoff_check = false;
         end
     end
 
-    if debug then
-        mp.osd_message("B: "..mp.get_property_osd("scale-param1").." C: "..mp.get_property_osd("scale-param2").." Offset: "..string.format("%.3f", opts.offset).." Cutoff: "..string.format("%.3f", opts.cutoff).." dscale: "..mp.get_property_osd("dscale"))
+    if debug_message then
+        mp.osd_message("B: "..mp.get_property_osd("scale-param1").." C: "..mp.get_property_osd("scale-param2").." Offset: "..string.format("%.3f", options.offset).." Cutoff: "..string.format("%.3f", options.cutoff).." dscale: "..mp.get_property_osd("dscale"))
     end
 end
 
 function set_params(log_ratio)
-    local x = log_ratio * opts.offset
+    local x = log_ratio * options.offset
     local B = x / (1 + math.abs(x))
     local C = 0.5 * -B + 0.5    --C = (1 - B) / 2
     if log_ratio >= 0 then
@@ -190,7 +190,7 @@ end
 local function cycle_offset()
     local i, index = 1
     for i = 1, #offset_list do
-        if (offset_list[i] == opts.offset) then
+        if (offset_list[i] == options.offset) then
             index = i + 1
             if index > #offset_list then
                 index = 1
@@ -198,7 +198,7 @@ local function cycle_offset()
             break
         end
     end
-    opts.offset = offset_list[index]
+    options.offset = offset_list[index]
 	mp.osd_message(offset_list[index])
 	dynamic_scale()
 end
