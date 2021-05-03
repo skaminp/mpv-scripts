@@ -1,8 +1,8 @@
-# dynamic_bcspline.lua
+# dynamic-bcspline
 
 ## Instructions
 
-The recommended `mpv.conf` options for this script are as follows.
+The recommended `mpv.conf` options are as follows.
 
 ```
 correct-downscaling
