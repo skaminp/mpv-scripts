@@ -170,7 +170,7 @@ end
 function set_params(log_ratio)
     local x = log_ratio * opts.offset
     local B = x / (1 + math.abs(x))
-    local C = 0.5 * -B + 0.5
+    local C = 0.5 * -B + 0.5    --C = (1 - B) / 2
     if log_ratio >= 0 then
         mp.command("no-osd set scale-param1 "..B.."; no-osd set scale-param2 "..C)
     else

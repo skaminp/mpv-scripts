@@ -2,12 +2,6 @@
 
 ## Instructions
 
-### Required
-
-None
-
-### Recommended
-
 The recommended `mpv.conf` options for this script are as follows.
 
 ```
